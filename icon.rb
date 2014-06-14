@@ -24,5 +24,17 @@ def define_icon_proc(plugin)
       i_tabs << i_tab
       i_tab.set_icon i_tab.icon
     end
+
+    filter_tab_update_widget { |i_tab, widgets|
+      widget = if i_tab.icon.is_a?(String)
+        ::Gtk::WebIcon.new(i_tab.icon, UserConfig[:tab_icon_size], UserConfig[:tab_icon_size])
+      else
+        ::Gtk::Label.new(i_tab.name)
+      end
+
+      widgets[:left] = [widget] + widgets[:left]
+
+      [i_tab, widgets]
+    }
   }
 end

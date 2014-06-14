@@ -17,13 +17,14 @@ Plugin.create(:mikutter_tab_extension) {
       tab = Plugin[:gtk].widgetof(i_tab)
 
       if tab
+        tab.tooltip(i_tab.name)
         tab.remove(tab.child) if tab.child
 
-        widgets = Plugin.filtering(:tab_update_widget, i_tab, {:left => [], :middle => [], :right => []})
+        widgets = Plugin.filtering(:tab_update_widget, i_tab, {:left => [], :center => [], :right => []})
 
         box = ::Gtk::HBox.new
 
-        [:left, :middle, :right].each { |key|
+        [:left, :center, :right].each { |key|
           widgets[1][key].each { |widget|
             box.pack_start(widget)
           }
@@ -32,18 +33,6 @@ Plugin.create(:mikutter_tab_extension) {
         tab.add(box).show_all
     end
   end
-
-  filter_tab_update_widget { |i_tab, widgets|
-    widget = if i_tab.icon.is_a?(String)
-      ::Gtk::WebIcon.new(i_tab.icon, UserConfig[:tab_icon_size], UserConfig[:tab_icon_size])
-    else
-      ::Gtk::Label.new(i_tab.name)
-    end
-
-    widgets[:left] = [widget] + widgets[:left]
-
-    [i_tab, widgets]
-  }
 
   define_icon_proc(self)
 }
