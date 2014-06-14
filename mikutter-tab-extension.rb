@@ -1,5 +1,7 @@
 # coding:UTF-8
 
+require File.join(File.dirname(__FILE__), "icon.rb")
+
 Plugin.create(:mikutter_tab_extension) {
   Plugin[:gtk].instance_eval {
     alias :tab_update_icon_moguno :tab_update_icon
@@ -17,12 +19,14 @@ Plugin.create(:mikutter_tab_extension) {
       if tab
         tab.remove(tab.child) if tab.child
 
-        widgets = Plugin.filtering(:tab_update_widget, i_tab, [])
+        widgets = Plugin.filtering(:tab_update_widget, i_tab, {:left => [], :middle => [], :right => []})
 
         box = ::Gtk::HBox.new
 
-        widgets[1].each { |widget|
-          box.pack_start(widget)
+        [:left, :middle, :right].each { |key|
+          widgets[1][key].each { |widget|
+            box.pack_start(widget)
+          }
         }
 
         tab.add(box).show_all
@@ -36,6 +40,10 @@ Plugin.create(:mikutter_tab_extension) {
       ::Gtk::Label.new(i_tab.name)
     end
 
-    [i_tab, [widget] + widgets]
+    widgets[:left] = [widget] + widgets[:left]
+
+    [i_tab, widgets]
   }
+
+  define_icon_proc(self)
 }
