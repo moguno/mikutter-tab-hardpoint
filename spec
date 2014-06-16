@@ -5,7 +5,7 @@ depends:
   plugin:
   - gui
   - gtk
-version: '1.0'
+version: '0.0.1'
 author: moguno
 name: mikutter-tab-hardpoint
 description: 'タブに任意のウィジェットを嵌め込むフレームワーク。アイコンサイズの変更機能付き'
