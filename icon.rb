@@ -9,7 +9,7 @@ def define_icon_proc(plugin)
     on_boot do
       UserConfig.connect(:tab_icon_size) { |key, val, before, id|
         Plugin::GUI::Tab.cuscaded.each { |slug, i_tab|
-          Plugin[:mikutter_tab_extension].tab_update_widgets(i_tab)
+          Plugin[:mikutter_tab_hardpoint].tab_update_widgets(i_tab)
         }
       }
     end

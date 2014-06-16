@@ -2,7 +2,7 @@
 
 require File.join(File.dirname(__FILE__), "icon.rb")
 
-Plugin.create(:mikutter_tab_extension) {
+Plugin.create(:mikutter_tab_hardpoint) {
   TabInfo = Struct.new(:container, :angle)
 
   @tab_infos = [
@@ -15,7 +15,7 @@ Plugin.create(:mikutter_tab_extension) {
   on_boot { |service|
     UserConfig.connect(:tab_position) { |key, val, before, id|
       Plugin::GUI::Tab.cuscaded.each { |slug, i_tab|
-        Plugin[:mikutter_tab_extension].tab_update_widgets(i_tab)
+        Plugin[:mikutter_tab_hardpoint].tab_update_widgets(i_tab)
       }
      }
   }
@@ -24,7 +24,7 @@ Plugin.create(:mikutter_tab_extension) {
     alias :tab_update_icon_moguno :tab_update_icon
 
     def tab_update_icon(i_tab)
-      Plugin[:mikutter_tab_extension].tab_update_widgets(i_tab)
+      Plugin[:mikutter_tab_hardpoint].tab_update_widgets(i_tab)
     end
   }
 
