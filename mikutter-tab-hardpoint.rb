@@ -52,6 +52,10 @@ Plugin.create(:mikutter_tab_hardpoint) {
           }
         }
 
+        if tab.children.first
+          tab.remove(tab.children.first)
+        end
+
         tab.add(box).show_all
       }
     end
