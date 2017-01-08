@@ -19,7 +19,7 @@ def define_icon_proc(plugin)
     end
 
     filter_tab_update_widget { |i_tab, widgets|
-      widget = if i_tab.icon.is_a?(String)
+      widget = if i_tab.icon.is_a?(String) || i_tab.icon.class.include?(Retriever::Model::PhotoMixin)
         ::Gtk::WebIcon.new(i_tab.icon, UserConfig[:tab_icon_size], UserConfig[:tab_icon_size])
       else
         ::Gtk::Label.new(i_tab.name)
